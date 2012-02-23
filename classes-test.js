@@ -1,9 +1,12 @@
 /*global console, require*/
 var
-	atom = require('./atom'),
+	argv = process.argv,
+	arg2 = argv.length > 2 && argv[2],
+	verbose = arg2 == '-v',
+	atom = require('./atom/atom'),
 	classes = require('./classes'),
-	clock = require('./clock'),
-	session = require('./test').session()
+	clock = require('./test/clock/clock'),
+	session = require('./test/test').session()
 ;
 
 session.chainTest(
@@ -251,9 +254,9 @@ session.chainTest(
 );
 
 session.chain(function () {
-	var brief = session.brief();
-	if (brief.length) {
-		console.log(brief);
+	var log = verbose ? session.log() : session.brief();
+	if (log.length) {
+		console.log(log);
 	}
 	console.log(session.tally());
 });
