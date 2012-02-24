@@ -11,6 +11,11 @@ FEATURES:
  - Public, protected, and private levels of access
 
 
+REQUIRES:
+
+atom.js
+
+
 EXAMPLE:
 
 // When defining a class, attach static methods to thisClass, and instance
