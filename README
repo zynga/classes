@@ -16,6 +16,12 @@ REQUIRES:
 atom.js (included as a submodule)
 
 
+UNIT TESTS:
+
+node classes-test.js      // brief
+node classes-test.js -v   // verbose
+
+
 EXAMPLE:
 
 // When defining a class, attach static methods to thisClass, and instance
