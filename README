@@ -17,7 +17,7 @@ EXAMPLE:
 // methods to thisInstance.  Methods are 'protected' by default, meaning they
 // are available to subclasses.
 
-classes.define('myclass', ['base'], function (thisClass, protoClass, expose) {
+classes.define('myclass', ['base'], function (thisClass) {
 
 	thisClass.staticMethod = function () {
 		// Do something that doesn't require access to instance data.
@@ -44,9 +44,17 @@ classes.define('myclass', ['base'], function (thisClass, protoClass, expose) {
 		thisInstance.publicMethod = function () {
 			// This function won't actually be exposed as part of the instance's
 			// public interface until expose() is called.
+			return 'Here you go: ' + thisInstance.protectedMethod();
 		};
 
 		expose('publicMethod');
 	};
 
 });
+
+
+// Once a class is defined, invoke it like this:
+var instance = classes.instanciate('myClass');
+
+console.log(instance.publicMethod());
+> "Here you go: My Class is aws0m3!!1! bar baz"
