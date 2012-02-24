@@ -22,7 +22,7 @@ EXAMPLE:
 // methods to thisInstance.  Methods are 'protected' by default, meaning they
 // are available to subclasses.
 
-classes.define('myclass', ['base'], function (thisClass) {
+classes.define('myclass', ['base'], function (thisClass, protoClass) {
 
 	thisClass.staticMethod = function () {
 		// Do something that doesn't require access to instance data.
