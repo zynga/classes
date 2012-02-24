@@ -13,7 +13,7 @@ FEATURES:
 
 REQUIRES:
 
-atom.js
+atom.js (included as a submodule)
 
 
 EXAMPLE:
