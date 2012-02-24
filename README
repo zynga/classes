@@ -9,6 +9,7 @@ FEATURES:
  - Multiple inheritance
  - Static (class-level) methods vs. instance methods
  - Public, protected, and private levels of access
+ - Only 6.8K (1.8K minified)
 
 
 REQUIRES:
@@ -65,7 +66,7 @@ classes.define('myclass', ['base'], function (thisClass, protoClass) {
 
 
 // Once a class is defined, invoke it like this:
-var instance = classes.instanciate('myClass');
+var instance = classes.instanciate('myclass');
 
 console.log(instance.publicMethod());
 > "Here you go: My Class is aws0m3!!1! bar baz"
