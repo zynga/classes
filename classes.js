@@ -4,7 +4,7 @@
 	// Establish the root object
 	var
 		root = this, // 'window' or 'global'
-		classes = { VERSION: '0.0.2' },
+		classes = { VERSION: '0.0.3' },
 		previous = root.classes
 	;
 	if (typeof module !== 'undefined' && module.exports) {
