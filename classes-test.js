@@ -121,7 +121,7 @@ session.chainTest(
 				return protoClass.getValue() + 'H';
 			};
 			expose('getValue');
-		})
+		});
 		done(classes.get('h').getValue() == 'FH');
 	}
 );
@@ -174,7 +174,7 @@ session.chainTest(
 			thisClass.instance = function (thisInstance, protoInstance, expose) {
 				var counter = 0;
 				thisInstance.getValue = function () {
-					return classValue + ++counter;
+					return classValue + (++counter);
 				};
 				expose('getValue');
 			};

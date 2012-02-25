@@ -53,9 +53,7 @@
 	}
 	function resolve(exposed, prot) {
 		for (var p in exposed) {
-			if (exposed.hasOwnProperty(p) &&
-				 prot.hasOwnProperty(p))
-			{
+			if (exposed.hasOwnProperty(p) && prot.hasOwnProperty(p)) {
 				exposed[p] = prot[p];
 			}
 		}
