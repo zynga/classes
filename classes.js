@@ -4,7 +4,7 @@
 	// Establish the root object
 	var
 		root = this, // 'window' or 'global'
-		classes = { VERSION: '0.0.3' },
+		classes = { VERSION: '0.0.4' },
 		previous = root.classes
 	;
 	if (typeof module !== 'undefined' && module.exports) {
@@ -131,7 +131,7 @@
 					exposed.push(classes[i] && classes[i].exposed || undefined);
 				}
 				return func ? func.apply({}, exposed) :
-					typeof classOrList == 'string' ? exposed[0] : exposed;
+					typeof classOrList === 'string' ? exposed[0] : exposed;
 			},
 
 			// Request instances of a class or classes.  If provided, `func` will
@@ -161,7 +161,7 @@
 						func.apply({}, instances);
 					}
 				});
-				return (instances.length == 1) ? instances[0] : instances;
+				return (instances.length === 1) ? instances[0] : instances;
 			},
 
 			// Call `func` as soon as all of the specified classes have been

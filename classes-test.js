@@ -1,8 +1,8 @@
-/*global console, require*/
+/*global console, process, require*/
 var
 	argv = process.argv,
 	arg2 = argv.length > 2 && argv[2],
-	verbose = arg2 == '-v',
+	verbose = arg2 === '-v',
 	atom = require('./atom/atom'),
 	classes = require('./classes'),
 	clock = require('./test/clock/clock'),
@@ -18,7 +18,7 @@ session.chainTest(
 			expose('exposedValue');
 		});
 		var a = classes.get('a');
-		done(a.secretValue === undefined && a.exposedValue == 'fnord');
+		done(a.secretValue === undefined && a.exposedValue === 'fnord');
 	}
 );
 
@@ -31,7 +31,7 @@ session.chainTest(
 			expose('otherExposedValue');
 		});
 		var a = classes.get('a');
-		done(a.secretValue === undefined && a.exposedValue == 'fnord' &&
+		done(a.secretValue === undefined && a.exposedValue === 'fnord' &&
 			!a.hasOwnProperty('otherExposedValue'));
 	}
 );
@@ -122,7 +122,7 @@ session.chainTest(
 			};
 			expose('getValue');
 		});
-		done(classes.get('h').getValue() == 'FH');
+		done(classes.get('h').getValue() === 'FH');
 	}
 );
 
@@ -146,7 +146,7 @@ session.chainTest(
 			};
 		});
 		classes.instanciate('i', function (inst) {
-			done(inst.secretValue === undefined && inst.exposedValue == 'fnord');
+			done(inst.secretValue === undefined && inst.exposedValue === 'fnord');
 		});
 	}
 );
