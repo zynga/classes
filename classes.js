@@ -1,21 +1,24 @@
 /*global atom, module*/
 (function (atom) {
 
-	// Establish the root object
-	var
-		root = this, // 'window' or 'global'
-		classes = { VERSION: '0.0.4' },
-		previous = root.classes
-	;
-	if (typeof module !== 'undefined' && module.exports) {
-		module.exports = classes;
-	}
-	root.classes = classes;
+	// Make a module
+	var classes = (function (name) {
+		var rt = typeof window !== 'undefined' ? window : global,
+			had = rt.hasOwnProperty(name), prev = rt[name], me = rt[name] = {};
+		if (typeof module !== 'undefined' && module.exports) {
+			module.exports = me;
+		}
+		me.noConflict = function () {
+			delete rt[name];
+			if (had) {
+				rt[name] = prev;
+			}
+			return this;
+		};
+		return me;
+	}('classes'));
 
-	classes.noConflict = function () {
-		root.classes = previous;
-		return this;
-	};
+	classes.VERSION = '0.0.5';
 
 	// Convenience methods
 	var isArray = Array.isArray || function (obj) {
