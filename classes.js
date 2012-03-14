@@ -1,4 +1,4 @@
-/*global atom, module*/
+/*global atom, global, module*/
 (function (atom) {
 
 	// Make a module
