@@ -18,7 +18,7 @@
 		return me;
 	}('classes'));
 
-	classes.VERSION = '0.0.5';
+	classes.VERSION = '0.0.6';
 
 	// Convenience methods
 	var isArray = Array.isArray || function (obj) {
