@@ -18,7 +18,8 @@
 		return me;
 	}('classes'));
 
-	classes.VERSION = '0.0.6';
+	classes.VERSION = '0.1.0';
+
 
 	// Convenience methods
 	var isArray = Array.isArray || function (obj) {
@@ -72,6 +73,7 @@
 		return copy;
 	}
 
+
 	// A `namespace` is the taxonomical scope within which classes are defined.
 	// This allows us to instanciate different sets of classes from different
 	// sources and avoid class-name space collisions.
@@ -87,6 +89,7 @@
 			return anc;
 		}
 		var me = {
+
 
 			// Define a class
 			define: function (name, extend, func) {
@@ -123,6 +126,7 @@
 				});
 			},
 
+
 			// Return the specified class objects.  Note that classes are not
 			// defined until all of their prerequisites have been defined... So
 			// unless you *know* your classes are defined, it is safer to use
@@ -136,6 +140,7 @@
 				return func ? func.apply({}, exposed) :
 					typeof classOrList === 'string' ? exposed[0] : exposed;
 			},
+
 
 			// Request instances of a class or classes.  If provided, `func` will
 			// be called with the instances as args.  If all the necessary classes
@@ -167,6 +172,7 @@
 				return (instances.length === 1) ? instances[0] : instances;
 			},
 
+
 			// Call `func` as soon as all of the specified classes have been
 			// defined.
 			once: function (classOrList, func) {
@@ -174,9 +180,11 @@
 					me.get(classOrList, func);
 				});
 			}
+
 		};
 		return me;
 	};
+
 
 	// Set up the default namespace
 	var defaultNamespace = classes.namespace();

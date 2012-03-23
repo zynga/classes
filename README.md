@@ -1,12 +1,12 @@
 OVERVIEW
---------
+========
 
 Classes.js provides a more traditional object oriented programming pattern than
 JavaScript's native prototype chaining method.
 
 
 FEATURES
---------
+========
 
  - Multiple inheritance
  - Static (class-level) methods vs. instance methods
@@ -15,20 +15,20 @@ FEATURES
 
 
 REQUIRES
---------
+========
 
 atom.js (included as a submodule)
 
 
 UNIT TESTS
-----------
+==========
 
 	node classes-test.js      // brief
 	node classes-test.js -v   // verbose
 
 
 EXAMPLE
--------
+=======
 
 When defining a class, attach static methods to thisClass, and instance
 methods to thisInstance.  Methods are 'protected' by default, meaning they
