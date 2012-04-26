@@ -72,7 +72,7 @@ are available to subclasses.
 
 Once a class is defined, invoke it like this:
 
-	var instance = classes.instanciate('myclass');
+	var instance = classes.instantiate('myclass');
 
 	console.log(instance.publicMethod());
 
