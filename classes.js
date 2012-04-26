@@ -18,7 +18,7 @@
 		return me;
 	}('classes'));
 
-	classes.VERSION = '0.1.0';
+	classes.VERSION = '0.1.1';
 
 
 	// Convenience methods
@@ -75,7 +75,7 @@
 
 
 	// A `namespace` is the taxonomical scope within which classes are defined.
-	// This allows us to instanciate different sets of classes from different
+	// This allows us to instantiate different sets of classes from different
 	// sources and avoid class-name space collisions.
 	classes.namespace = function () {
 		var a = atom.create();
@@ -146,7 +146,7 @@
 			// be called with the instances as args.  If all the necessary classes
 			// have been defined, then the return value will also be the instance
 			// (or array of instances) requested.
-			instanciate: function (classOrList, func) {
+			instantiate: function (classOrList, func) {
 				var instances = [];
 				a.need(classOrList, function () {
 					a.each(classOrList, function (name, cl) {
@@ -190,7 +190,7 @@
 	var defaultNamespace = classes.namespace();
 	classes.define = defaultNamespace.define;
 	classes.get = defaultNamespace.get;
-	classes.instanciate = defaultNamespace.instanciate;
+	classes.instantiate = defaultNamespace.instantiate;
 	classes.once = defaultNamespace.once;
 
 }(atom));

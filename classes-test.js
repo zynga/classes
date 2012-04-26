@@ -127,9 +127,9 @@ session.chainTest(
 );
 
 session.chainTest(
-	'Class can be instanciated even if it doesn\'t explicitly expose "instance"',
+	'Class can be instantiated even if it doesn\'t explicitly expose "instance"',
 	function (done) {
-		classes.instanciate('d', function (d) {
+		classes.instantiate('d', function (d) {
 			done(d !== undefined);
 		});
 	}
@@ -145,17 +145,17 @@ session.chainTest(
 				expose('exposedValue');
 			};
 		});
-		classes.instanciate('i', function (inst) {
+		classes.instantiate('i', function (inst) {
 			done(inst.secretValue === undefined && inst.exposedValue === 'fnord');
 		});
 	}
 );
 
 session.chainTest(
-	'instanciate() returns the requested instance, as long as the class and ' +
+	'instantiate() returns the requested instance, as long as the class and ' +
 		'all prerequisites have been defined',
 	function (done) {
-		var i1, i2 = classes.instanciate('i', function (i) {
+		var i1, i2 = classes.instantiate('i', function (i) {
 			i1 = i;
 		});
 		done(i1 === i2);
@@ -180,7 +180,7 @@ session.chainTest(
 			};
 			expose('setValue');
 		});
-		classes.instanciate(['j', 'j'], function (j1, j2) {
+		classes.instantiate(['j', 'j'], function (j1, j2) {
 			classes.get('j').setValue('foo');
 			done(j1.getValue() === 'foo1' && j1.getValue() === 'foo2' &&
 				j2.getValue() === 'foo1');
@@ -199,7 +199,7 @@ session.chainTest(
 				};
 			};
 		});
-		classes.instanciate('k', function (k) {
+		classes.instantiate('k', function (k) {
 			done(k.getValue() === 'foo1sub');
 		});
 	}
@@ -248,7 +248,7 @@ session.chainTest(
 				done(thisInstance.someMethod() === 'P');
 			};
 		});
-		classes.instanciate('q', function (q) {
+		classes.instantiate('q', function (q) {
 		});
 	}
 );
