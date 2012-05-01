@@ -3,22 +3,26 @@
 
 	// Make a module
 	var classes = (function (name) {
-		var rt = typeof window !== 'undefined' ? window : global,
-			had = rt.hasOwnProperty(name), prev = rt[name], me = rt[name] = {};
+		var root = typeof window !== 'undefined' ? window : global,
+			had = Object.prototype.hasOwnProperty.call(root, name),
+			prev = root[name], me = root[name] = {};
 		if (typeof module !== 'undefined' && module.exports) {
 			module.exports = me;
 		}
 		me.noConflict = function () {
-			delete rt[name];
-			if (had) {
-				rt[name] = prev;
+			root[name] = had ? prev : undefined;
+			if (!had) {
+				try {
+					delete root[name];
+				} catch (ex) {
+				}
 			}
 			return this;
 		};
 		return me;
 	}('classes'));
 
-	classes.VERSION = '0.1.1';
+	classes.VERSION = '0.1.2';
 
 
 	// Convenience methods
