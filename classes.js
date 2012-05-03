@@ -22,7 +22,7 @@
 		return me;
 	}('classes'));
 
-	classes.VERSION = '0.1.3';
+	classes.VERSION = '0.1.4';
 
 
 	// Convenience methods
@@ -157,13 +157,13 @@
 						var classNames = dedupe(ancestors(cl.extend)).concat([name]),
 							classDef, classDefs = a.get(classNames), p,
 							i = -1, len = classDefs.length, exposed = {},
-							instanciator, thisInstance = {}, expose = exposer(exposed);
+							instantiator, thisInstance = {}, expose = exposer(exposed);
 						while (++i < len) {
 							classDef = classDefs[i];
-							instanciator = classDef && classDef.singleton &&
+							instantiator = classDef && classDef.singleton &&
 								classDef.singleton.instance;
-							if (instanciator) {
-								instanciator(thisInstance, shallowCopy(thisInstance),
+							if (instantiator) {
+								instantiator(thisInstance, shallowCopy(thisInstance),
 									expose);
 							}
 						}
