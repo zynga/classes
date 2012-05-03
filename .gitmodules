@@ -1,3 +1,6 @@
 [submodule "test"]
 	path = test
 	url = git@github-ca.corp.zynga.com:ccampbell/test.git
+[submodule "atom"]
+	path = atom
+	url = git://github.com/zynga/atom.git

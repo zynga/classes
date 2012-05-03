@@ -22,7 +22,7 @@
 		return me;
 	}('classes'));
 
-	classes.VERSION = '0.1.2';
+	classes.VERSION = '0.1.3';
 
 
 	// Convenience methods
