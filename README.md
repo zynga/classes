@@ -1,33 +1,38 @@
-OVERVIEW
+Overview
 ========
 
-Classes.js provides a more traditional object oriented programming pattern than
-JavaScript's native prototype chaining method.
+`classes.js` provides a more traditional object oriented programming pattern
+than JavaScript's native prototype chaining.
 
 
-FEATURES
+Features
 ========
 
  - Multiple inheritance
  - Static (class-level) methods vs. instance methods
  - Public, protected, and private levels of access
+ - Works in browser, or in node
  - Only 6.8K (1.8K minified)
 
 
-REQUIRES
+Requires
 ========
 
-atom.js (included as a submodule)
+[atom.js][atom] (included as a submodule)
 
 
-UNIT TESTS
+Unit Tests
 ==========
 
-	node classes-test.js      // brief
-	node classes-test.js -v   // verbose
+To run from command line using node.js:
+
+	node test.js      // brief
+	node test.js -v   // verbose
+
+To run in a browser, open `test.html`.
 
 
-EXAMPLE
+Example
 =======
 
 When defining a class, attach static methods to thisClass, and instance
@@ -45,7 +50,8 @@ are available to subclasses.
 
 		thisClass.instance = function (thisInstance, protoInstance, expose) {
 
-			// Private methods and data are just defined inside the instance closure.
+			// Private methods and data are just defined inside the instance
+			// closure.
 			var foo = 'bar';
 			function privateMethod() {
 				return foo + ' baz';
@@ -79,3 +85,6 @@ Once a class is defined, invoke it like this:
 Output:
 
 	"Here you go: My Class is aws0m3!!1! bar baz"
+
+
+[atom]: https://github.com/zynga/atom

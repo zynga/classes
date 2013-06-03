@@ -1,5 +1,5 @@
 /*global atom, global, module*/
-(function (atom) {
+(function (atom, undef) {
 
 	// Make a module
 	var classes = (function (name) {
@@ -10,7 +10,7 @@
 			module.exports = me;
 		}
 		me.noConflict = function () {
-			root[name] = had ? prev : undefined;
+			root[name] = had ? prev : undef;
 			if (!had) {
 				try {
 					delete root[name];
@@ -22,7 +22,7 @@
 		return me;
 	}('classes'));
 
-	classes.VERSION = '0.1.4';
+	classes.VERSION = '0.2.0';
 
 
 	// Convenience methods
@@ -139,7 +139,7 @@
 				var classes = a.get(toArray(classOrList)), exposed = [], i = -1,
 					len = classes.length;
 				while (++i < len) {
-					exposed.push(classes[i] && classes[i].exposed || undefined);
+					exposed.push(classes[i] && classes[i].exposed || undef);
 				}
 				return func ? func.apply({}, exposed) :
 					typeof classOrList === 'string' ? exposed[0] : exposed;

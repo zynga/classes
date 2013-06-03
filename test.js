@@ -1,15 +1,61 @@
-/*global console, process, require*/
+/*global atom:true, classes:true, logger:true, process, require*/
+atom = typeof atom === 'undefined' ? require('atom-js') : atom;
+classes = typeof classes === 'undefined' ? require('./classes') : classes;
+logger = (typeof logger !== 'undefined' && logger) || console.log;
+
 var
-	argv = process.argv,
-	arg2 = argv.length > 2 && argv[2],
-	verbose = arg2 === '-v',
-	atom = require('./atom/atom'),
-	classes = require('./classes'),
-	clock = require('./test/clock/clock'),
-	session = require('./test/test').session()
+	a = atom(),
+	chain = a.chain,
+	inBrowser = typeof document !== 'undefined',
+	inNode = !inBrowser,
+	argv = inNode && process.argv,
+	arg2 = argv && argv.length > 2 && argv[2],
+	verbose = inBrowser || arg2 === '-v',
+	results = [],
+	totals = { success: 0, fail: 0, total: 0 }
 ;
 
-session.chainTest(
+function assert(msg, success) {
+	totals.total++;
+	if (success) {
+		totals.success++;
+		if (verbose) {
+			logger(msg + '... success.');
+		}
+	} else {
+		totals.fail++;
+		logger(msg + '... FAIL!');
+	}
+}
+
+function asyncTest(description, func) {
+	var test = atom();
+	chain(function (next) {
+		try {
+			func(function (result) {
+				test.set('done', result);
+			});
+		} catch (ex) {
+			test.set('error', ex);
+			logger(ex + '');
+		}
+		setTimeout(function () {
+			if (!test.has('done')) {
+				test.set('error', 'timeout');
+				logger('timeout');
+			}
+		}, 10000);
+		test.once('error', function () {
+			test.set('done');
+		});
+		test.once('done', function (result) {
+			assert(description, result);
+			next();
+		});
+	});
+}
+
+asyncTest(
 	'Class properties not available unless explicitly exposed',
 	function (done) {
 		classes.define('a', [], function (thisClass, protoClass, expose) {
@@ -22,7 +68,7 @@ session.chainTest(
 	}
 );
 
-session.chainTest(
+asyncTest(
 	'Attempts to redefine a class are ignored, and leave the original class ' +
 		'unaffected',
 	function (done) {
@@ -36,7 +82,7 @@ session.chainTest(
 	}
 );
 
-session.chainTest(
+asyncTest(
 	'If a class is defined with no prereqs, the class is available immediately',
 	function (done) {
 		classes.define('b', [], function (thisClass, protoClass, expose) {
@@ -47,7 +93,7 @@ session.chainTest(
 	}
 );
 
-session.chainTest(
+asyncTest(
 	'If a class is defined with already-satisfied prereqs, the class is ' +
 		'available immediately',
 	function (done) {
@@ -58,7 +104,7 @@ session.chainTest(
 	}
 );
 
-session.chainTest(
+asyncTest(
 	'If a class is defined with unavailable prereqs, the class is NOT ' +
 		'available immediately',
 	function (done) {
@@ -70,7 +116,7 @@ session.chainTest(
 	}
 );
 
-session.chainTest(
+asyncTest(
 	'Once the prereqs for a previously defined class are available, the ' +
 		'class becomes available',
 	function (done) {
@@ -80,7 +126,7 @@ session.chainTest(
 	}
 );
 
-session.chainTest(
+asyncTest(
 	'The once() method can be used to register a callback for when a class ' +
 		'is ready',
 	function (done) {
@@ -102,7 +148,7 @@ session.chainTest(
 	}
 );
 
-session.chainTest(
+asyncTest(
 	'Function defined in base class is callable from subclass constructor, ' +
 		'both on thisClass and on protoClass',
 	function (done) {
@@ -112,7 +158,7 @@ session.chainTest(
 	}
 );
 
-session.chainTest(
+asyncTest(
 	'Function defined in base class but overridden in subclass is available ' +
 		'in its original form via protoClass',
 	function (done) {
@@ -126,7 +172,7 @@ session.chainTest(
 	}
 );
 
-session.chainTest(
+asyncTest(
 	'Class can be instantiated even if it doesn\'t explicitly expose "instance"',
 	function (done) {
 		classes.instantiate('d', function (d) {
@@ -135,7 +181,7 @@ session.chainTest(
 	}
 );
 
-session.chainTest(
+asyncTest(
 	'Instance properties not available unless explicitly exposed',
 	function (done) {
 		classes.define('i', [], function (thisClass) {
@@ -151,7 +197,7 @@ session.chainTest(
 	}
 );
 
-session.chainTest(
+asyncTest(
 	'instantiate() returns the requested instance, as long as the class and ' +
 		'all prerequisites have been defined',
 	function (done) {
@@ -162,7 +208,7 @@ session.chainTest(
 	}
 );
 
-session.chainTest(
+asyncTest(
 	'Two different instances of the same class share the class state, but ' +
 		'have separate instance state',
 	function (done) {
@@ -188,7 +234,7 @@ session.chainTest(
 	}
 );
 
-session.chainTest(
+asyncTest(
 	'When a subclass overrides an instance method, the superclass version ' +
 		'of the method is available via protoInstance',
 	function (done) {
@@ -205,7 +251,7 @@ session.chainTest(
 	}
 );
 
-session.chainTest(
+asyncTest(
 	'When a class extends two superclasses that both implement a given ' +
 		'class method, the rightmost superclass takes precedence',
 	function (done) {
@@ -225,7 +271,7 @@ session.chainTest(
 	}
 );
 
-session.chainTest(
+asyncTest(
 	'When a class extends two superclasses that both implement a given ' +
 		'instance method, the rightmost superclass takes precedence',
 	function (done) {
@@ -253,10 +299,10 @@ session.chainTest(
 	}
 );
 
-session.chain(function () {
-	var log = verbose ? session.log() : session.brief();
-	if (log.length) {
-		console.log(log);
+chain(function () {
+	logger(totals);
+
+	if (inNode) {
+		process.exit(totals.fail ? 1 : 0);
 	}
-	console.log(session.tally());
 });
