@@ -155,7 +155,7 @@
 				a.need(classOrList, function () {
 					a.each(classOrList, function (name, cl) {
 						var classNames = dedupe(ancestors(cl.extend)).concat([name]),
-							classDef, classDefs = a.get(classNames), p,
+							classDef, classDefs = a.get(classNames),
 							i = -1, len = classDefs.length, exposed = {},
 							instantiator, thisInstance = {}, expose = exposer(exposed);
 						while (++i < len) {
