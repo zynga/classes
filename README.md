@@ -32,8 +32,8 @@ To run from command line using node.js:
 To run in a browser, open `test.html`.
 
 
-Example
-=======
+Basic Example
+=============
 
 When defining a class, attach static methods to thisClass, and instance
 methods to thisInstance.  Methods are 'protected' by default, meaning they
@@ -45,7 +45,7 @@ are available to subclasses.
 			// Do something that doesn't require access to instance data.
 			// Optionally call protoClass.<method> to access methods of the base
 			// class(es).
-			return 'My Class is aws0m3!!1!';
+			return 'My Class is aw3s0m3!!1!';
 		};
 
 		thisClass.instance = function (thisInstance, protoInstance, expose) {
@@ -82,9 +82,46 @@ Once a class is defined, invoke it like this:
 
 	console.log(instance.publicMethod());
 
+
 Output:
 
-	"Here you go: My Class is aws0m3!!1! bar baz"
+	"Here you go: My Class is aw3s0m3!!1! bar baz"
+
+
+It is also possible to wait for a class to be defined:
+
+	classes.once('myclass', function () {
+		var instance = classes.instantiate('myclass');
+	});
+
+
+Multiple Inheritance
+====================
+
+Multiple inheritance works by specifying an array of "superclasses" as the
+second argument to `.define()`, like so:
+
+	classes.define(
+		'myclass2',
+		['superclass1', 'superclass2'],
+		function (thisClass, protoClass) {
+			// protoClass is now inherits all the protected and public members of
+			// both superclass1 and superclass2.  In the case of conflicts, the
+			// superclass specified *last* in the array wins.
+
+			// ...
+		}
+	);
+
+
+Inheriting Properties (Don't use primitives!)
+=============================================
+
+It is possible to attach properties (as opposed to functions) to a class or
+instance.  However, *primitive* properties (simple string, number or boolean
+values) are not recommended, because they will not stay in sync between class
+and superclass.  Instead, use accessor functions, or set properties as on object
+or array.
 
 
 [atom]: https://github.com/zynga/atom
