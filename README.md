@@ -4,6 +4,10 @@ Overview
 `classes.js` provides a more traditional object oriented programming pattern
 than JavaScript's native prototype chaining.
 
+In many cases, this is overkill and a more procedural or functional approach is
+actually more appropriate in JavaScript.  However, in some cases it is really
+useful to have traditional OO features.
+
 
 Features
 ========
@@ -12,13 +16,14 @@ Features
  - Static (class-level) methods vs. instance methods
  - Public, protected, and private levels of access
  - Works in browser, or in node
- - Only 6.8K (1.8K minified)
+ - Only 5.5K (~1.8K minified)
 
 
 Requires
 ========
 
-[atom.js][atom] (included as a submodule)
+Only dependency is [atom.js][atom], which is itself small and is included as a
+submodule.
 
 
 Unit Tests
@@ -121,7 +126,7 @@ It is possible to attach properties (as opposed to functions) to a class or
 instance.  However, *primitive* properties (simple string, number or boolean
 values) are not recommended, because they will not stay in sync between class
 and superclass.  Instead, use accessor functions, or set properties as on object
-or array.
+or array that may have mutable members.
 
 
 [atom]: https://github.com/zynga/atom
