@@ -13,6 +13,7 @@ Features
 ========
 
  - Multiple inheritance
+ - Namespaces
  - Static (class-level) methods vs. instance methods
  - Public, protected, and private levels of access
  - Works in browser, or in node
@@ -97,6 +98,19 @@ It is also possible to wait for a class to be defined:
 
 	classes.once('myclass', function () {
 		var instance = classes.instantiate('myclass');
+	});
+
+
+Namespaces
+==========
+
+By default, classes are defined in a global namespace.  However, you can easily
+create a new namespace if you want to ensure against class name collisions:
+
+	var myClassNamespace = classes.namespace();
+
+	myClassNamespace.define('myclass', [], function (thisClass) {
+		// ...
 	});
 
 
