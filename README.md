@@ -32,6 +32,7 @@ Unit Tests
 
 To run from command line using node.js:
 
+	npm install atom-js
 	node test.js      // brief
 	node test.js -v   // verbose
 
