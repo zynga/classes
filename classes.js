@@ -1,33 +1,41 @@
 /*global atom, global, module*/
 (function (atom, undef) {
 
+	var
+		ObjProto = Object.prototype,
+		hasOwn = ObjProto.hasOwnProperty,
+		typeUndef = 'undefined'
+	;
+
 	// Make a module
 	var classes = (function (name) {
-		var root = typeof window !== 'undefined' ? window : global,
-			had = Object.prototype.hasOwnProperty.call(root, name),
+		var root = typeof window !== typeUndef ? window : global,
+			had = hasOwn.call(root, name),
 			prev = root[name], me = root[name] = {};
-		if (typeof module !== 'undefined' && module.exports) {
+		if (typeof module !== typeUndef && module.exports) {
 			module.exports = me;
 		}
 		me.noConflict = function () {
-			root[name] = had ? prev : undef;
-			if (!had) {
-				try {
-					delete root[name];
-				} catch (ex) {
+			if (root[name] === classes) {
+				root[name] = had ? prev : undef;
+				if (!had) {
+					try {
+						delete root[name];
+					} catch (ex) {
+					}
 				}
 			}
-			return this;
+			return classes;
 		};
 		return me;
 	}('classes'));
 
-	classes.VERSION = '0.2.0';
+	classes.VERSION = '0.3.0';
 
 
 	// Convenience methods
 	var isArray = Array.isArray || function (obj) {
-		return Object.prototype.toString.call(obj) === '[object Array]';
+		return ObjProto.toString.call(obj) === '[object Array]';
 	};
 	function inArray(arr, value) {
 		for (var i = arr.length; --i >= 0;) {
@@ -61,7 +69,7 @@
 	}
 	function resolve(exposed, prot) {
 		for (var p in exposed) {
-			if (exposed.hasOwnProperty(p) && prot.hasOwnProperty(p)) {
+			if (hasOwn.call(exposed, p) && hasOwn.call(prot, p)) {
 				exposed[p] = prot[p];
 			}
 		}
@@ -70,7 +78,7 @@
 	function shallowCopy(item) {
 		var copy = {};
 		for (var p in item) {
-			if (item.hasOwnProperty(p)) {
+			if (hasOwn.call(item, p)) {
 				copy[p] = item[p];
 			}
 		}
@@ -82,12 +90,19 @@
 	// This allows us to instantiate different sets of classes from different
 	// sources and avoid class-name space collisions.
 	classes.namespace = function () {
-		var a = atom.create();
+		var
+			a = atom(),
+			each = a.each,
+			get = a.get,
+			need = a.need,
+			once = a.once,
+			set = a.set
+		;
 		function ancestors(list) {
 			var anc = [], i = -1, len = list.length, item;
 			while (++i < len) {
 				item = list[i];
-				anc = anc.concat(ancestors(a.get(item).extend));
+				anc = anc.concat(ancestors(get(item).extend));
 				anc.push(item);
 			}
 			return anc;
@@ -97,12 +112,12 @@
 
 			// Define a class
 			define: function (name, extend, func) {
-				a.need(extend, function () {
-					if (a.get(name)) {
+				need(extend, function () {
+					if (get(name)) {
 						return;
 					}
 					var superNames = dedupe(ancestors(extend)), superClass,
-						superClasses = a.get(superNames), i, len, p, exposed = {},
+						superClasses = get(superNames), i, len, p, exposed = {},
 						superExposed, superSingleton, protoClass = {}, thisClass = {},
 						expose = exposer(exposed);
 					for (i = 0, len = superClasses.length; i < len; i++) {
@@ -122,7 +137,7 @@
 					}
 					func(thisClass, protoClass, expose);
 					expose('instance');
-					a.set(name, {
+					set(name, {
 						singleton: thisClass,
 						exposed: resolve(exposed, thisClass),
 						extend: extend
@@ -136,7 +151,7 @@
 			// unless you *know* your classes are defined, it is safer to use
 			// `once()` intead.
 			get: function (classOrList, func) {
-				var classes = a.get(toArray(classOrList)), exposed = [], i = -1,
+				var classes = get(toArray(classOrList)), exposed = [], i = -1,
 					len = classes.length;
 				while (++i < len) {
 					exposed.push(classes[i] && classes[i].exposed || undef);
@@ -152,10 +167,10 @@
 			// (or array of instances) requested.
 			instantiate: function (classOrList, func) {
 				var instances = [];
-				a.need(classOrList, function () {
-					a.each(classOrList, function (name, cl) {
+				need(classOrList, function () {
+					each(classOrList, function (name, cl) {
 						var classNames = dedupe(ancestors(cl.extend)).concat([name]),
-							classDef, classDefs = a.get(classNames),
+							classDef, classDefs = get(classNames),
 							i = -1, len = classDefs.length, exposed = {},
 							instantiator, thisInstance = {}, expose = exposer(exposed);
 						while (++i < len) {
@@ -180,7 +195,7 @@
 			// Call `func` as soon as all of the specified classes have been
 			// defined.
 			once: function (classOrList, func) {
-				a.once(classOrList, function () {
+				once(classOrList, function () {
 					me.get(classOrList, func);
 				});
 			}
