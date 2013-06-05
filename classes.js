@@ -30,7 +30,8 @@
 		return me;
 	}('classes'));
 
-	classes.VERSION = '0.3.0';
+	classes.VERSION = '0.3.1';
+	classes.atom = atom;
 
 
 	// Convenience methods
