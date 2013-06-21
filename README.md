@@ -42,9 +42,9 @@ To run in a browser, open `test.html`.
 Basic Example
 =============
 
-When defining a class, attach static methods to thisClass, and instance
-methods to thisInstance.  Methods are 'protected' by default, meaning they
-are available to subclasses.
+When defining a class, attach static methods to `thisClass`, and instance
+methods to `thisInstance`.  Methods are *protected* by default, meaning they are
+available to subclasses.
 
 ```javascript
 	classes.define('myclass', ['base'], function (thisClass, protoClass) {
