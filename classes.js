@@ -1,4 +1,9 @@
-/*global atom, global, module*/
+/*global atom*/
+//
+// classes.js
+// https://github-ca.corp.zynga.com/ccampbell/classes
+// Author: Chris Campbell (@quaelin)
+//
 (function (atom, undef) {
 
 	var
@@ -30,7 +35,7 @@
 		return me;
 	}('classes'));
 
-	classes.VERSION = '0.3.1';
+	classes.VERSION = '0.3.2';
 	classes.atom = atom;
 
 
