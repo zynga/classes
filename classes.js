@@ -35,7 +35,7 @@
 		return me;
 	}('classes'));
 
-	classes.VERSION = '0.3.2';
+	classes.VERSION = '0.3.3';
 	classes.atom = atom;
 
 
