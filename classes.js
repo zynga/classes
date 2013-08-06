@@ -35,7 +35,7 @@
 		return me;
 	}('classes'));
 
-	classes.VERSION = '0.3.3';
+	classes.VERSION = '0.3.4';
 	classes.atom = atom;
 
 
@@ -130,13 +130,13 @@
 						superClass = superClasses[i];
 						superExposed = superClass.exposed;
 						for (p in superExposed) {
-							if (superExposed.hasOwnProperty(p)) {
+							if (hasOwn.call(superExposed, p)) {
 								expose(p);
 							}
 						}
 						superSingleton = superClass.singleton;
 						for (p in superSingleton) {
-							if (superSingleton.hasOwnProperty(p)) {
+							if (hasOwn.call(superSingleton, p)) {
 								thisClass[p] = protoClass[p] = superSingleton[p];
 							}
 						}
