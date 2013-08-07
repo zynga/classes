@@ -1,7 +1,7 @@
 /*global atom*/
 //
 // classes.js
-// https://github-ca.corp.zynga.com/ccampbell/classes
+// https://github.com/zynga/classes
 // Author: Chris Campbell (@quaelin)
 // License: BSD
 //
