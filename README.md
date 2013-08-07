@@ -27,6 +27,12 @@ Only dependency is [atom.js][atom], which is itself small and is included as a
 submodule.
 
 
+Install
+=======
+
+	npm install classes-js
+
+
 Unit Tests
 ==========
 
@@ -36,7 +42,8 @@ To run from command line using node.js:
 	node test.js      // brief
 	node test.js -v   // verbose
 
-To run in a browser, open `test.html`.
+To run in a browser, open `test.html` or go
+[here](http://zynga.github.io/classes/test.html).
 
 
 Basic Example
@@ -46,7 +53,7 @@ When defining a class, attach static methods to `thisClass`, and instance
 methods to `thisInstance`.  Methods are *protected* by default, meaning they are
 available to subclasses.
 
-```javascript
+```js
 	classes.define('myclass', ['base'], function (thisClass, protoClass) {
 
 		thisClass.staticMethod = function () {
@@ -87,7 +94,7 @@ available to subclasses.
 
 Once a class is defined, invoke it like this:
 
-```javascript
+```js
 	var instance = classes.instantiate('myclass');
 
 	console.log(instance.publicMethod());
@@ -101,7 +108,7 @@ Output:
 
 It is also possible to wait for a class to be defined:
 
-```javascript
+```js
 	classes.once('myclass', function () {
 		var instance = classes.instantiate('myclass');
 	});
@@ -114,7 +121,7 @@ Namespaces
 By default, classes are defined in a global namespace.  However, you can easily
 create a new namespace if you want to ensure against class name collisions:
 
-```javascript
+```js
 	var myClassNamespace = classes.namespace();
 
 	myClassNamespace.define('myclass', [], function (thisClass) {
@@ -129,7 +136,7 @@ Multiple Inheritance
 Multiple inheritance works by specifying an array of "superclasses" as the
 second argument to `.define()`, like so:
 
-```javascript
+```js
 	classes.define(
 		'myclass2',
 		['superclass1', 'superclass2'],
