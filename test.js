@@ -15,6 +15,8 @@ var
 	totals = { success: 0, fail: 0, total: 0 }
 ;
 
+logger('classes ' + classes.VERSION);
+
 function assert(msg, success) {
 	totals.total++;
 	if (success) {
