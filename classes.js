@@ -3,8 +3,10 @@
 // classes.js
 // https://github-ca.corp.zynga.com/ccampbell/classes
 // Author: Chris Campbell (@quaelin)
+// License: BSD
 //
 (function (atom, undef) {
+	'use strict';
 
 	var
 		ObjProto = Object.prototype,
@@ -35,7 +37,7 @@
 		return me;
 	}('classes'));
 
-	classes.VERSION = '0.3.4';
+	classes.VERSION = '0.3.5';
 	classes.atom = atom;
 
 

@@ -1,0 +1,19 @@
+{
+  "name": "classes-js",
+  "version": "0.3.5",
+  "description": "JS class pattern; supports multi-inheritance, static & instance methods, public/protected access...",
+  "author": "Chris Campbell <ccampbell@zynga.com> (https://github.com/quaelin)",
+  "homepage": "https://github.com/zynga/classes",
+  "bugs": {
+    "url": "https://github.com/zynga/classes/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/zynga/classes.git"
+  },
+  "main": "./classes.js",
+  "scripts": {
+    "test": "node test.js"
+  },
+  "license": "BSD"
+}
