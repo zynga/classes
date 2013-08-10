@@ -92,7 +92,10 @@ available to subclasses.
 ```
 
 
-Once a class is defined, invoke it like this:
+In the above example, 'base' will be used as superclass.  If 'base' is not already defined, then the
+definition of 'myclass' will be delayed until 'base' gets defined.
+
+Once a class is defined, instantiate it like this:
 
 ```js
 	var instance = classes.instantiate('myclass');
@@ -109,8 +112,12 @@ Output:
 It is also possible to wait for a class to be defined:
 
 ```js
-	classes.once('myclass', function () {
+	classes.once('myclass', function (myclass) {
+		var staticMessage = myclass.staticMethod();
+
 		var instance = classes.instantiate('myclass');
+		
+		// ...
 	});
 ```
 
